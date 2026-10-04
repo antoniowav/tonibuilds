@@ -1,28 +1,20 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
 import { themes, type Theme } from "./themes";
 
-// The theme lives in <html data-theme>, set before paint by themeScript; this
-// component just reads and changes that attribute.
-function subscribe(onChange: () => void) {
-  const observer = new MutationObserver(onChange);
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-  return () => observer.disconnect();
-}
-
-function current(): Theme {
-  const t = document.documentElement.dataset.theme as Theme | undefined;
-  return t && themes.includes(t) ? t : themes[0];
-}
+// The theme lives in <html data-theme>, set before first paint by themeScript.
+// The button's label comes from CSS (.theme-name in globals.css) so it is right
+// from the first frame too; this component only changes the attribute.
 
 /** `omarchy-theme-next`, for the website: cycles through a few Omarchy palettes. */
 export default function ThemeSwitcher() {
-  const theme = useSyncExternalStore(subscribe, current, () => themes[0]);
-
   function next() {
-    const t = themes[(themes.indexOf(theme) + 1) % themes.length];
-    document.documentElement.dataset.theme = t;
+    const html = document.documentElement;
+    const now = html.dataset.theme as Theme | undefined;
+    const t = themes[(themes.indexOf(now && themes.includes(now) ? now : themes[0]) + 1) % themes.length];
+    html.classList.add("theme-switching"); // fade only on a switch, never on page load
+    html.dataset.theme = t;
+    setTimeout(() => html.classList.remove("theme-switching"), 300);
     try {
       localStorage.setItem("theme", t);
     } catch {
@@ -34,11 +26,12 @@ export default function ThemeSwitcher() {
     <button
       type="button"
       onClick={next}
-      className="rounded border border-line px-2 py-0.5 text-dim transition-colors hover:border-accent hover:text-accent"
-      aria-label={`Colour theme: ${theme}. Switch to the next theme`}
+      className="flex min-h-8 min-w-8 items-center justify-center gap-1 rounded border border-line px-2 py-0.5 text-dim transition-colors hover:border-accent hover:text-accent"
+      aria-label="Switch colour theme"
       title="Switch theme"
     >
-      <span aria-hidden>◐</span> {theme}
+      <span aria-hidden>◐</span>
+      <span className="theme-name hidden sm:inline" />
     </button>
   );
 }

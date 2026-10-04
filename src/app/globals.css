@@ -54,8 +54,19 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-mono);
+}
+
+.theme-switching body {
   transition: background-color 0.2s, color 0.2s;
 }
+
+/* The theme button's label, from the attribute, so it never shows the default first. */
+.theme-name::after { content: "tokyo-night"; }
+:root[data-theme="catppuccin"] .theme-name::after { content: "catppuccin"; }
+:root[data-theme="gruvbox"] .theme-name::after { content: "gruvbox"; }
+:root[data-theme="rose-pine"] .theme-name::after { content: "rose-pine"; }
+:root[data-theme="nord"] .theme-name::after { content: "nord"; }
+:root[data-theme="plum"] .theme-name::after { content: "plum"; }
 
 ::selection {
   background: var(--accent);
@@ -83,5 +94,5 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .cursor { animation: none; }
-  body { transition: none; }
+  .theme-switching body { transition: none; }
 }

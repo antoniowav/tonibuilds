@@ -19,7 +19,7 @@ export default function CopyButton({ text }: { text: string }) {
     <button
       type="button"
       onClick={copy}
-      className="shrink-0 rounded border border-line px-2 text-xs text-dim transition-colors hover:border-accent hover:text-accent"
+      className="min-h-7 shrink-0 rounded border border-line px-2 text-xs text-dim transition-colors hover:border-accent hover:text-accent"
       aria-label="Copy install command"
     >
       {copied ? "copied ✓" : "copy"}

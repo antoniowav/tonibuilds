@@ -51,7 +51,7 @@ export default async function Home() {
             </div>
           </a>
           {older.length > 0 && (
-            <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {older.slice(0, 6).map((v) => (
                 <li key={v.id}>
                   <a href={v.url} className="group block rounded-lg border border-line bg-bg-2 p-2 transition-colors hover:border-accent">
@@ -64,7 +64,7 @@ export default async function Home() {
             </ul>
           )}
           <p className="mt-4 text-sm">
-            <a href={youtube.url} className="text-accent hover:underline">
+            <a href={youtube.url} className="-my-1.5 inline-block py-1.5 text-accent hover:underline">
               → all videos on youtube.com/@tonibuilds
             </a>
           </p>
@@ -72,16 +72,16 @@ export default async function Home() {
 
         <Section id="linux" path="~/linux" cmd="ls --long">
           <p className="mb-4 text-sm text-dim">Apps and tools I build for my own Arch + Hyprland desktop, and share.</p>
-          <ul className="grid gap-3 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {linux.map((p, i) => {
               const live = repos[i];
               const released = live?.release;
               return (
-                <li key={p.name} className="flex flex-col gap-2 rounded-lg border border-line bg-bg-2 p-4">
+                <li key={p.name} className="flex min-w-0 flex-col gap-2 rounded-lg border border-line bg-bg-2 p-4">
                   <div className="flex items-baseline justify-between gap-2">
                     <h3 className="font-bold text-accent">
                       {p.repo ? (
-                        <a href={`https://github.com/antoniowav/${p.repo}`} className="hover:underline">
+                        <a href={`https://github.com/antoniowav/${p.repo}`} className="-my-1 inline-block py-1 hover:underline">
                           {p.name}
                         </a>
                       ) : (
@@ -98,7 +98,7 @@ export default async function Home() {
                   {p.basedOn && (
                     <p className="text-xs text-dim">
                       built on {p.basedOn.modified ? "a modified " : ""}
-                      <a href={p.basedOn.url} className="text-cyan hover:underline">
+                      <a href={p.basedOn.url} className="-my-1.5 inline-block py-1.5 text-cyan hover:underline">
                         {p.basedOn.name}
                       </a>
                     </p>
@@ -115,7 +115,7 @@ export default async function Home() {
                     <span>{p.language}</span>
                     {live && <span>★ {live.stars}</span>}
                     {p.repo ? (
-                      <a href={`https://github.com/antoniowav/${p.repo}`} className="ml-auto text-accent hover:underline">
+                      <a href={`https://github.com/antoniowav/${p.repo}`} className="-my-1.5 ml-auto inline-block py-1.5 text-accent hover:underline">
                         source →
                       </a>
                     ) : (
@@ -151,14 +151,14 @@ export default async function Home() {
         </Section>
 
         <Section id="links" path="~/links" cmd="ls -la">
-          <ul className="rounded-lg border border-line bg-bg-2 p-4 text-sm">
+          <ul className="rounded-lg border border-line bg-bg-2 px-4 py-2 text-sm">
             {links.map((l) => (
-              <li key={l.name} className="flex flex-wrap gap-x-3">
-                <span className="hidden text-dim sm:inline">lrwxrwxrwx</span>
-                <span className="w-24 text-cyan">{l.name}</span>
-                <span className="text-dim">-&gt;</span>
-                <a href={l.url} className="break-all hover:text-accent hover:underline">
-                  {l.label}
+              <li key={l.name}>
+                <a href={l.url} className="group flex min-w-0 items-baseline gap-x-3 py-1.5 sm:py-0.5">
+                  <span className="hidden text-dim sm:inline">lrwxrwxrwx</span>
+                  <span className="w-20 shrink-0 text-cyan sm:w-24">{l.name}</span>
+                  <span className="shrink-0 text-dim">-&gt;</span>
+                  <span className="min-w-0 truncate group-hover:text-accent group-hover:underline">{l.label}</span>
                 </a>
               </li>
             ))}
@@ -185,16 +185,16 @@ export default async function Home() {
 function Bar() {
   return (
     <header className="sticky top-0 z-10 border-b border-line bg-bg-2/90 backdrop-blur">
-      <nav className="mx-auto flex max-w-4xl items-center gap-1 px-4 py-2 text-sm sm:px-6" aria-label="Sections">
-        <a href="#top" className="mr-2 font-bold text-accent">
+      <nav className="mx-auto flex max-w-4xl items-center gap-1 px-3 py-1.5 text-sm sm:px-6 sm:py-2" aria-label="Sections">
+        <a href="#top" className="mr-2 hidden font-bold text-accent sm:inline">
           {site.prompt}
         </a>
-        <ul className="flex gap-1">
+        <ul className="flex min-w-0 gap-0.5 sm:gap-1">
           {sections.map((s, i) => (
             <li key={s.id}>
-              <a href={`#${s.id}`} className="rounded px-1.5 py-0.5 text-dim hover:bg-bg-3 hover:text-fg">
-                <span className="text-accent">{i + 1}</span>
-                <span className="hidden sm:inline"> {s.label}</span>
+              <a href={`#${s.id}`} className="block rounded px-1.5 py-1 text-dim hover:bg-bg-3 hover:text-fg">
+                <span className="hidden text-accent sm:inline">{i + 1} </span>
+                {s.label}
               </a>
             </li>
           ))}
@@ -209,36 +209,36 @@ function Bar() {
 
 function Hero() {
   return (
-    <section id="top" className="pt-10 sm:pt-16">
+    <section id="top" className="pt-6 sm:pt-16">
       <div className="rounded-lg border-2 border-accent bg-bg-2 shadow-[0_0_40px_-12px_var(--accent)]">
         <div className="border-b border-line px-4 py-1.5 text-xs text-dim">~ — zsh</div>
         <div className="p-4 sm:p-6">
           <p className="text-sm">
             <Prompt /> whoami
           </p>
-          <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-center">
+          <div className="mt-4 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-3 sm:gap-x-5">
             <Image
               src="/avatar.jpg"
               alt="Toni"
               width={112}
               height={112}
               priority
-              className="h-24 w-24 rounded-lg border border-line object-cover sm:h-28 sm:w-28"
+              className="h-16 w-16 rounded-lg border border-line object-cover sm:row-span-2 sm:h-28 sm:w-28"
             />
-            <div>
-              <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{site.name}</h1>
-              <p className="mt-2 max-w-xl">{site.intro}</p>
+            <h1 className="text-[1.75rem] font-extrabold leading-tight tracking-tight sm:self-end sm:text-4xl">{site.name}</h1>
+            <div className="col-span-2 sm:col-span-1 sm:col-start-2 sm:self-start">
+              <p className="max-w-xl">{site.intro}</p>
               <p className="mt-1 max-w-xl text-sm text-dim">{site.sub}</p>
             </div>
           </div>
-          <div className="mt-6 flex flex-wrap gap-2 text-sm">
-            <a href={youtube.url} className="rounded bg-red px-3 py-1.5 font-bold text-bg hover:opacity-90">
+          <div className="mt-6 grid grid-cols-2 gap-2 text-center text-sm sm:flex sm:flex-wrap">
+            <a href={youtube.url} className="col-span-2 rounded bg-red px-3 py-2 font-bold text-bg hover:opacity-90 sm:py-1.5">
               ▶ watch on youtube
             </a>
-            <a href="https://github.com/antoniowav" className="rounded border border-line px-3 py-1.5 hover:border-accent hover:text-accent">
+            <a href="https://github.com/antoniowav" className="rounded border border-line px-3 py-2 hover:border-accent hover:text-accent sm:py-1.5">
               github
             </a>
-            <a href={studio.url} className="rounded border border-line px-3 py-1.5 hover:border-accent hover:text-accent">
+            <a href={studio.url} className="rounded border border-line px-3 py-2 hover:border-accent hover:text-accent sm:py-1.5">
               coda studio
             </a>
           </div>
