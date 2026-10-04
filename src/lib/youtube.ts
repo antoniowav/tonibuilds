@@ -24,14 +24,17 @@ const fallback: Video[] = [
 const decode = (s: string) =>
   s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 
+export const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${youtube.channelId}`;
+
+/** Cache tag of the feed, so a new-video notification can refresh it (src/app/api/youtube). */
+export const videosTag = "youtube";
+
 const tag = (xml: string, name: string) => xml.match(new RegExp(`<${name}>([\\s\\S]*?)</${name}>`))?.[1];
 
 /** The channel's latest uploads (newest first), from its public RSS feed. */
 export async function latestVideos(): Promise<Video[]> {
   try {
-    const res = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${youtube.channelId}`, {
-      next: { revalidate: 3600 },
-    });
+    const res = await fetch(feedUrl, { next: { revalidate: 3600, tags: [videosTag] } });
     if (!res.ok) return fallback;
     const xml = await res.text();
     const videos = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].flatMap(([, entry]) => {
