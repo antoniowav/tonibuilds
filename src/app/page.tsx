@@ -95,6 +95,14 @@ export default async function Home() {
                     ) : null}
                   </div>
                   <p className="text-sm text-dim">{live?.description ?? p.blurb}</p>
+                  {p.basedOn && (
+                    <p className="text-xs text-dim">
+                      built on {p.basedOn.modified ? "a modified " : ""}
+                      <a href={p.basedOn.url} className="text-cyan hover:underline">
+                        {p.basedOn.name}
+                      </a>
+                    </p>
+                  )}
                   {p.install && (
                     <div className="flex items-center gap-2 rounded bg-bg px-2 py-1.5 text-xs">
                       <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap">

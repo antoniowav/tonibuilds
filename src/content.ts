@@ -26,6 +26,7 @@ export type LinuxProject = {
   language: string;
   install?: string;
   status?: string; // shown instead of a release for work in progress
+  basedOn?: { name: string; url: string; modified?: boolean }; // credit for a project it builds on
 };
 
 export const linux: LinuxProject[] = [
@@ -72,6 +73,7 @@ export const linux: LinuxProject[] = [
     blurb: "Terminal client for iPhone messages (SMS, RCS, iMessage) on Linux, over Bluetooth",
     language: "Go",
     status: "coming soon",
+    basedOn: { name: "BlueFerry", url: "https://github.com/erikwb/blueferry", modified: true },
   },
   {
     name: "terminal-newtab",
