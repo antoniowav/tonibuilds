@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# tonibuilds.codaproduct.studio
 
-## Getting Started
+Personal site of Toni Builds: Linux apps, products, YouTube videos and links.
+Next.js (App Router) + Tailwind, styled like an Omarchy terminal, with six switchable Omarchy palettes.
 
-First, run the development server:
+## Editing
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Everything the site says is in [`src/content.ts`](src/content.ts): intro, Linux projects, products, links.
+
+Fetched live and refreshed at most once an hour (ISR), with the content file as fallback:
+
+- **YouTube**: latest uploads from the channel's RSS feed (`src/lib/youtube.ts`).
+- **GitHub**: description, stars and latest release of each public repo (`src/lib/github.ts`).
+  Optional `GITHUB_TOKEN` env var raises GitHub's rate limit.
+
+To show a private project's link once it's public, add `repo: "<name>"` to it in `content.ts`.
+
+## Develop
+
+```sh
+npm install
+npm run dev      # http://localhost:3000
+npm run lint && npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vercel project with the domain `tonibuilds.codaproduct.studio`; in Cloudflare DNS a
+`CNAME tonibuilds → cname.vercel-dns.com` (DNS only).
