@@ -41,7 +41,7 @@ export default async function Home() {
             href={latest.url}
             className="group grid gap-4 rounded-lg border border-line bg-bg-2 p-3 transition-colors hover:border-accent sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] sm:p-4"
           >
-            <Thumb video={latest} priority />
+            <Thumb video={latest} priority sizes="(min-width: 896px) 440px, (min-width: 640px) 50vw, calc(100vw - 58px)" />
             <div className="flex flex-col justify-center gap-2">
               <span className="text-xs uppercase tracking-widest text-red">▶ latest video</span>
               <h3 className="text-lg font-bold leading-snug text-fg group-hover:text-accent">{latest.title}</h3>
@@ -55,7 +55,7 @@ export default async function Home() {
               {older.slice(0, 6).map((v) => (
                 <li key={v.id}>
                   <a href={v.url} className="group block rounded-lg border border-line bg-bg-2 p-2 transition-colors hover:border-accent">
-                    <Thumb video={v} />
+                    <Thumb video={v} sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, calc(100vw - 50px)" />
                     <h3 className="mt-2 line-clamp-2 text-sm font-bold group-hover:text-accent">{v.title}</h3>
                     <p className="text-xs text-dim">{date(v.published)}</p>
                   </a>
@@ -273,7 +273,7 @@ function Section({ id, path, cmd, children }: { id: string; path: string; cmd: s
   );
 }
 
-function Thumb({ video, priority = false }: { video: Video; priority?: boolean }) {
+function Thumb({ video, sizes, priority = false }: { video: Video; sizes: string; priority?: boolean }) {
   return (
     <div className="relative aspect-video overflow-hidden rounded bg-bg-3">
       <Image
@@ -281,7 +281,8 @@ function Thumb({ video, priority = false }: { video: Video; priority?: boolean }
         alt=""
         fill
         priority={priority}
-        sizes="(min-width: 640px) 450px, 100vw"
+        quality={90}
+        sizes={sizes}
         className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
       />
     </div>
