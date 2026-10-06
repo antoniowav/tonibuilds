@@ -25,6 +25,7 @@ export type LinuxProject = {
   blurb: string;
   language: string;
   install?: string;
+  plugin?: string; // id in the Omarchy plugin marketplace; the card links to its page, which has the install command
   status?: string; // shown instead of a release for work in progress
   basedOn?: { name: string; url: string; modified?: boolean }; // credit for a project it builds on
 };
@@ -54,27 +55,30 @@ export const linux: LinuxProject[] = [
   {
     name: "omarchy-departures",
     repo: "omarchy-departures",
+    plugin: "io.github.antoniowav.departures",
     blurb: "Live public transport departures in your Omarchy bar — every Swedish operator via Trafiklab ResRobot",
     language: "QML",
   },
   {
     name: "omarchy-elpris",
     repo: "omarchy-elpris",
+    plugin: "io.github.antoniowav.elpris",
     blurb: "Nord Pool electricity spot price in your Omarchy bar — hourly chart, cheapest hours at a glance",
     language: "QML",
   },
   {
     name: "omarchy-appsweep",
     repo: "omarchy-appsweep",
+    plugin: "io.github.antoniowav.appsweep",
     blurb: "Bulk-remove packages and web apps on Omarchy from a floating checkbox panel",
     language: "QML",
   },
   {
     name: "omarchy-workspace-switcher",
     repo: "omarchy-workspace-switcher",
+    plugin: "io.github.antoniowav.workspace-switcher",
     blurb: "Alt + Tab for Omarchy workspaces: tap Super + Tab to flip back, hold it to see every workspace in order of visit with window previews",
     language: "QML",
-    install: "omarchy plugin add https://github.com/antoniowav/omarchy-workspace-switcher --enable",
   },
   {
     name: "cuore",

@@ -22,6 +22,7 @@ const views = (n: number | null) =>
   n === null ? "" : `${new Intl.NumberFormat("en", { notation: "compact" }).format(n)} views`;
 
 const host = (url: string) => url.replace(/^(https?:\/\/|mailto:)(www\.)?/, "").replace(/\/$/, "");
+const pluginPage = (id: string) => `https://plugins.omarchy.org/plugin.html?id=${encodeURIComponent(id)}`;
 
 export default async function Home() {
   const [videos, repos] = await Promise.all([
@@ -80,7 +81,11 @@ export default async function Home() {
                 <li key={p.name} className="flex min-w-0 flex-col gap-2 rounded-lg border border-line bg-bg-2 p-4">
                   <div className="flex items-baseline justify-between gap-2">
                     <h3 className="font-bold text-accent">
-                      {p.repo ? (
+                      {p.plugin ? (
+                        <a href={pluginPage(p.plugin)} className="-my-1 inline-block py-1 hover:underline">
+                          {p.name}
+                        </a>
+                      ) : p.repo ? (
                         <a href={`https://github.com/antoniowav/${p.repo}`} className="-my-1 inline-block py-1 hover:underline">
                           {p.name}
                         </a>
@@ -114,8 +119,13 @@ export default async function Home() {
                   <p className="mt-auto flex gap-3 text-xs text-dim">
                     <span>{p.language}</span>
                     {live && <span>★ {live.stars}</span>}
+                    {p.plugin && (
+                      <a href={pluginPage(p.plugin)} className="-my-1.5 ml-auto inline-block py-1.5 text-accent hover:underline">
+                        plugin page →
+                      </a>
+                    )}
                     {p.repo ? (
-                      <a href={`https://github.com/antoniowav/${p.repo}`} className="-my-1.5 ml-auto inline-block py-1.5 text-accent hover:underline">
+                      <a href={`https://github.com/antoniowav/${p.repo}`} className={`-my-1.5 inline-block py-1.5 text-accent hover:underline ${p.plugin ? "" : "ml-auto"}`}>
                         source →
                       </a>
                     ) : (
