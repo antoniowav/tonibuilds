@@ -45,6 +45,13 @@ export const linux: LinuxProject[] = [
     install: "git clone https://github.com/antoniowav/jotter && cd jotter && ./install",
   },
   {
+    name: "sprawl",
+    repo: "sprawl",
+    blurb: "Pixel-art city builder for Linux: zone, power and grow a hamlet into a metropolis, in your theme's colours",
+    language: "Go",
+    install: "git clone https://github.com/antoniowav/sprawl && cd sprawl && dist/install.sh",
+  },
+  {
     name: "omarchy-departures",
     repo: "omarchy-departures",
     blurb: "Live public transport departures in your Omarchy bar — every Swedish operator via Trafiklab ResRobot",
