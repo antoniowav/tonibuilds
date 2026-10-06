@@ -70,6 +70,13 @@ export const linux: LinuxProject[] = [
     language: "QML",
   },
   {
+    name: "omarchy-workspace-switcher",
+    repo: "omarchy-workspace-switcher",
+    blurb: "Alt + Tab for Omarchy workspaces: tap Super + Tab to flip back, hold it to see every workspace in order of visit with window previews",
+    language: "QML",
+    install: "omarchy plugin add https://github.com/antoniowav/omarchy-workspace-switcher --enable",
+  },
+  {
     name: "cuore",
     blurb: "An Arch Linux desktop where every app is your choice: Hyprland + Quickshell, nothing preinstalled",
     language: "Distro",
