@@ -53,7 +53,9 @@ export async function latestVideos(): Promise<Video[]> {
     const res = await fetch(feedUrl, { next: { revalidate: 3600, tags: [videosTag] } });
     if (!res.ok) return fallback;
     const xml = await res.text();
-    const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].slice(0, 7); // the page shows 7
+    const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)]
+      .filter(([, entry]) => !entry.includes("youtube.com/shorts/")) // the feed links Shorts there; the page skips them
+      .slice(0, 7); // the page shows 7
     const videos = entries.flatMap(([, entry]) => {
       const id = tag(entry, "yt:videoId");
       if (!id || !/^[\w-]{11}$/.test(id)) return [];
